@@ -1,0 +1,11 @@
+# Настройки Cloudflare Worker. Секреты сюда НЕ пишем — только через `wrangler secret put`.
+name = "otves-leads"
+main = "index.js"
+compatibility_date = "2026-10-01"
+
+# База заявок (Cloudflare D1, SQLite). В коде доступна как env.DB
+# database_id появится после `npx wrangler d1 create otves` — вставьте его сюда.
+[[d1_databases]]
+binding = "DB"
+database_name = "otves"
+database_id = "ВСТАВЬТЕ-ID-ПОСЛЕ-wrangler-d1-create"
