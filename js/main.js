@@ -347,7 +347,8 @@
         $('#estimate-label').textContent = current === 'result' ? 'Стоимость' : 'Стоимость, предварительно';
         live.innerHTML = 'Сейчас: <b>' + mln(est.total.min) + ' – ' + mln(est.total.max) + ' ₽</b>';
       } else {
-        total.textContent = 'Ответьте на 3 вопроса';
+        var left = ['property', 'area', 'level'].filter(function (k) { return !answers[k]; }).length;
+        total.textContent = left === 3 ? 'Ответьте на 3 вопроса' : 'Ещё ' + left + ' ' + plural(left, 'ответ', 'ответа', 'ответов') + ' — и покажем цену';
         total.classList.add('is-empty');
         live.textContent = '';
       }
