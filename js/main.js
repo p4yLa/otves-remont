@@ -13,7 +13,7 @@
 
   // Адрес Cloudflare Worker, который сохраняет заявки и пересылает их в Telegram (см. worker/).
   // Пустая строка — демо-режим: всё считается в браузере, заявки никуда не уходят.
-  var LEAD_ENDPOINT = '';
+  var LEAD_ENDPOINT = 'https://otves-leads.p4yla.workers.dev';
 
   // Номер счётчика Яндекс Метрики (см. <head>). Цели: quiz_start, quiz_result, lead_quiz, lead_callback
   var METRIKA_ID = 0;
@@ -477,7 +477,7 @@
         $('#success-text').textContent = contact === 'call'
           ? 'Инженер позвонит в течение 30 минут (Пн–Сб 9:00–21:00) и предложит время замера.'
           : 'Инженер напишет в ' + E.OPTIONS.contact[contact] + ' в течение 30 минут (Пн–Сб 9:00–21:00) и предложит время замера.';
-        if (res && res.demo) $('#success-text').textContent += ' Это демо-сайт: заявка никуда не отправлена.';
+        $('#success-text').textContent += res && res.demo ? ' Это демо-сайт: заявка никуда не отправлена.' : ' Это демо-сайт: заявка ушла разработчику в Telegram.';
         form.classList.add('is-done');
         success.hidden = false;
         success.focus();
@@ -588,7 +588,7 @@
         consent: true
       }, button, $('#callback-error')).then(function (res) {
         var s = $('#callback-success');
-        if (res && res.demo) $('p', s).textContent += ' Это демо-сайт: заявка никуда не отправлена.';
+        $('p', s).textContent += res && res.demo ? ' Это демо-сайт: заявка никуда не отправлена.' : ' Это демо-сайт: заявка ушла разработчику в Telegram.';
         form.classList.add('is-done');
         s.hidden = false;
         s.focus();

@@ -807,3 +807,6 @@ body.has-cookie .sticky-cta { display: none; }
 .notfound p { color: var(--c-ink-2); margin-bottom: var(--sp-6); }
 .notfound .hero__actions { justify-content: center; margin: 0; }
 .notfound .hero__actions .btn { flex: 0 1 auto; }
+
+/* Пометка «это демо»: заявка уходит разработчику в Telegram */
+.demo-note { margin: var(--sp-3) 0 0; padding: var(--sp-3) var(--sp-4); border-left: 3px solid var(--c-accent); border-radius: var(--r-m, 4px); background: var(--c-accent-soft); font-size: var(--fs-s); color: var(--c-ink); }

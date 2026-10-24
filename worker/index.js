@@ -113,9 +113,10 @@ async function handleQuiz(d, base, env, origin) {
     ...est.lines.map((l) => '  · ' + esc(l.label) + ': ' + (l.min === l.max ? rub(l.min) : rub(l.min) + ' – ' + rub(l.max)))
   ].filter((x) => x !== null);
   // Заявка уже в базе. Если Telegram не ответил — не пугаем клиента ошибкой.
-  await telegram(env, lines.join('\n')).catch(() => false);
+  // notified — дошло ли сообщение до Telegram (видно в ответе, удобно для проверки)
+  const notified = await telegram(env, lines.join('\n')).catch(() => false);
 
-  return json({ ok: true, id, estimate: { total: est.total, weeks: est.weeks, lines: est.lines } }, 200, origin);
+  return json({ ok: true, id, notified, estimate: { total: est.total, weeks: est.weeks, lines: est.lines } }, 200, origin);
 }
 
 /* ---------- POST: обратный звонок ---------- */
@@ -127,8 +128,8 @@ async function handleCallback(d, base, env, origin) {
   const id = res.meta.last_row_id;
   const lines = ['📞 <b>Перезвонить #' + id + '</b>', '', '<b>' + esc(base.name) + '</b>, ' + phoneLink(base.phone)];
   if (comment) lines.push('', '💬 ' + esc(comment));
-  await telegram(env, lines.join('\n')).catch(() => false);
-  return json({ ok: true, id }, 200, origin);
+  const notified = await telegram(env, lines.join('\n')).catch(() => false);
+  return json({ ok: true, id, notified }, 200, origin);
 }
 
 export default {

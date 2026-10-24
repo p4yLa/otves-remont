@@ -4,8 +4,8 @@ main = "index.js"
 compatibility_date = "2026-10-01"
 
 # База заявок (Cloudflare D1, SQLite). В коде доступна как env.DB
-# database_id появится после `npx wrangler d1 create otves` — вставьте его сюда.
+# База создана: npx wrangler d1 create otves
 [[d1_databases]]
 binding = "DB"
 database_name = "otves"
-database_id = "ВСТАВЬТЕ-ID-ПОСЛЕ-wrangler-d1-create"
+database_id = "016ddb0c-05b2-4101-9cb3-2246bedbb28a"
