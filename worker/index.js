@@ -62,6 +62,13 @@ async function telegram(env, text) {
   return r.ok;
 }
 const phoneLink = (phone) => '<a href="tel:' + phone.replace(/[^\d+]/g, '') + '">' + esc(phone) + '</a>';
+// 1 неделя, 3 недели, 12 недель
+function weeksWord(n) {
+  const m10 = n % 10, m100 = n % 100;
+  if (m10 === 1 && m100 !== 11) return 'неделя';
+  if (m10 >= 2 && m10 <= 4 && (m100 < 12 || m100 > 14)) return 'недели';
+  return 'недель';
+}
 const CONTACT_ICONS = { call: '📞', telegram: '✈️', whatsapp: '💬' };
 
 // Приводим телефон к виду +7 (XXX) XXX-XX-XX — так его удобно читать в Telegram
@@ -102,7 +109,7 @@ async function handleQuiz(d, base, env, origin) {
     '🗓 Начать: ' + O.start[a.start].toLowerCase(),
     '',
     '💰 <b>' + rub(est.total.min) + ' – ' + rub(est.total.max) + '</b>',
-    '⏱ ' + est.weeks.min + '–' + est.weeks.max + ' недель',
+    '⏱ ' + est.weeks.min + '–' + est.weeks.max + ' ' + weeksWord(est.weeks.max),
     ...est.lines.map((l) => '  · ' + esc(l.label) + ': ' + (l.min === l.max ? rub(l.min) : rub(l.min) + ' – ' + rub(l.max)))
   ].filter((x) => x !== null);
   // Заявка уже в базе. Если Telegram не ответил — не пугаем клиента ошибкой.

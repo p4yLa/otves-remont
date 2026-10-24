@@ -401,6 +401,7 @@
       back.hidden = i === 0;
       next.hidden = isResult;
       submit.hidden = !isResult;
+      form.classList.toggle('is-result', isResult);
       errorBox.textContent = '';
       if (step === 'area' && !answers.area) setArea(areaInput.value || 54);
       if (isResult) {
